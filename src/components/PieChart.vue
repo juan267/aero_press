@@ -74,6 +74,17 @@ const chartConfig = {
           },
         },
       },
+      datalabels: {
+        formatter(value, context) {
+          return props.type === 'Porcentaje'
+            ? `${value}%`
+            : `${value}`
+        },
+        display(context) {
+          return context.dataset.data[context.dataIndex] === 0 ? 'auto' : true
+        },
+        color: 'rgba(17, 24, 39, var(--tw-text-opacity))',
+      },
     },
   },
 }
@@ -91,7 +102,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-65 inline-block">
+  <div class="w-70 inline-block">
     <h3 class="text-lg leading-6 font-medium text-gray-900">
       {{ title }}
     </h3>
