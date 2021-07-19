@@ -8,8 +8,10 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 Chart.register(
+  ChartDataLabels,
   ArcElement,
   DoughnutController,
   PieController,
@@ -77,12 +79,10 @@ const chartConfig = {
 }
 
 function buildChart() {
-  nextTick(() => {
-    new Chart(
-      pieChart.value,
-      chartConfig,
-    )
-  })
+  new Chart(
+    pieChart.value,
+    chartConfig,
+  )
 }
 
 onMounted(() => {
@@ -91,7 +91,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-50 inline-block">
+  <div class="w-65 inline-block">
     <h3 class="text-lg leading-6 font-medium text-gray-900">
       {{ title }}
     </h3>

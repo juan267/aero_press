@@ -69,12 +69,10 @@ const chartConfig = {
 }
 
 function buildChart() {
-  nextTick(() => {
-    new Chart(
-      barChart.value,
-      chartConfig,
-    )
-  })
+  new Chart(
+    barChart.value,
+    chartConfig,
+  )
 }
 
 onMounted(() => {
