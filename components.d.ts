@@ -3,6 +3,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BarChart: typeof import('./src/components/BarChart.vue')['default']
     CarbonCampsite: typeof import('virtual:vite-icons/carbon/campsite')['default']
     CarbonDicomOverlay: typeof import('virtual:vite-icons/carbon/dicom-overlay')['default']
     CarbonLanguage: typeof import('virtual:vite-icons/carbon/language')['default']
@@ -13,6 +14,7 @@ declare module 'vue' {
     CarbonWarning: typeof import('virtual:vite-icons/carbon/warning')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     LotItem: typeof import('./src/components/LotItem.vue')['default']
+    PieChart: typeof import('./src/components/PieChart.vue')['default']
     README: typeof import('./src/components/README.md')['default']
     ReportTable: typeof import('./src/components/ReportTable.vue')['default']
   }

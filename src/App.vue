@@ -13,5 +13,6 @@ useHead({
 </script>
 
 <template>
-  <router-view />
+  <router-view class="min-h-screen bg-gray-100">
+  </router-view>
 </template>
