@@ -56,6 +56,7 @@ const stats = [
 
         <PieChart
           title="Cantidad plagas"
+          type="Cantidad"
           :labels="[...labels, 'frutos sanos']"
           :data="[props.lot.whiteACount, props.lot.redACount, props.lot.toastACount, props.lot.littleSpiderCount, props.lot.healthyFruitCount]"
         />

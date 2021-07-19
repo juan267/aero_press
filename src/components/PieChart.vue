@@ -2,25 +2,8 @@
 import {
   Chart,
   ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
   DoughnutController,
-  LineController,
   PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
   Legend,
   Title,
   Tooltip,
@@ -28,25 +11,8 @@ import {
 
 Chart.register(
   ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
   DoughnutController,
-  LineController,
   PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
   Legend,
   Title,
   Tooltip,
@@ -74,6 +40,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  type: {
+    type: String,
+    default: 'Porcentaje',
+  },
 })
 
 const pieChart = ref(null)
@@ -81,7 +51,7 @@ const pieChart = ref(null)
 const chartData = {
   labels: props.labels,
   datasets: [{
-    label: 'Porcentaje',
+    label: props.type,
     data: props.data,
     backgroundColor: Object.values(CHART_COLORS),
     hoverOffset: 4,
@@ -91,6 +61,19 @@ const chartData = {
 const chartConfig = {
   type: 'doughnut',
   data: chartData,
+  options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(context) {
+            return props.type === 'Porcentaje'
+              ? `${context.dataset.label}: ${context.formattedValue}%`
+              : `${context.dataset.label}: ${context.formattedValue}`
+          },
+        },
+      },
+    },
+  },
 }
 
 function buildChart() {

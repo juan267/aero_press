@@ -15,7 +15,7 @@ function handleFileUpload(file) {
     const bstr = e.target.result
     const wb = read(bstr, { type: 'binary' })
     /* Get first worksheet */
-    const wsname = wb.SheetNames[1]
+    const wsname = wb.SheetNames[0]
     const ws = wb.Sheets[wsname]
     /* Convert array of arrays */
     data.value = utils.sheet_to_json(ws, { header: 1 })
@@ -33,8 +33,6 @@ const byLot = groupBy((row) => {
   return row['3']
 })
 
-const byTree = groupBy(row => row['5'])
-
 const groupBylot = computed(() => {
   return byLot(data.value)
 })
@@ -45,18 +43,19 @@ const report = computed(() => {
 
   return Object.entries(groupBylot.value).reduce((memo, [lot, lotRows]) => {
     const fruitCount = lotRows.length
-    const treeCount = Object.keys((lotRows.filter(row => row['6']))).length
-    const whiteACount = +(countBy(row => row['14'])(lotRows).Sí || 0).toFixed(2)
-    const toastACount = +(countBy(row => row['15'])(lotRows).Sí || 0).toFixed(2)
-    const redACount = +(countBy(row => row['16'])(lotRows).Sí || 0).toFixed(2)
-    const littleSpiderCount = +(countBy(row => row['17'])(lotRows).Sí || 0).toFixed(2)
-    const healthyFruitCount = countBy(row => row['18'])(lotRows)
+    const treeCount = Object.keys(countBy(row => row['7'])(lotRows)).length
+    const whiteACount = +(countBy(row => row['16'])(lotRows).Sí || 0).toFixed(2)
+    const toastACount = +(countBy(row => row['17'])(lotRows).Sí || 0).toFixed(2)
+    const redACount = +(countBy(row => row['18'])(lotRows).Sí || 0).toFixed(2)
+    const littleSpiderCount = +(countBy(row => row['19'])(lotRows).Sí || 0).toFixed(2)
+    const healthyFruitCount = countBy(row => row['20'])(lotRows)
 
+    // debugger
     memo[lot] = {
       treeCount,
       fruitCount,
-      healthyFruitCount: +(healthyFruitCount.Sí).toFixed(2),
-      healthyFruitAverage: +(healthyFruitCount.Sí / fruitCount * 100).toFixed(2),
+      healthyFruitCount: +(healthyFruitCount.Sí || 0).toFixed(2),
+      healthyFruitAverage: +((healthyFruitCount.Sí || 0) / fruitCount * 100).toFixed(2),
       littleSpiderCount,
       littleSpiderAverage: +(littleSpiderCount / fruitCount * 100).toFixed(2),
       whiteACount,
@@ -65,7 +64,7 @@ const report = computed(() => {
       redAAverage: +(redACount / fruitCount * 100).toFixed(2),
       toastACount,
       toastAAverage: +(toastACount / fruitCount * 100).toFixed(2),
-      magnifyingAAverage: +(sum(lotRows.filter(row => row['19']).map(row => row['19'])) / healthyFruitCount.No).toFixed(2),
+      magnifyingAAverage: +(sum(lotRows.filter(row => row['21']).map(row => row['21'])) / lotRows.filter(row => row['21']).length || 0).toFixed(2),
     }
 
     return memo
